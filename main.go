@@ -6,9 +6,13 @@ import (
 )
 
 func main() {
+
 	ip, err := ip.ExternalIP()
+
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("IP:", ip)
+
+	fmt.Println("local IP:", ip)
+
 }

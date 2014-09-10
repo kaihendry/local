@@ -1,1 +1,3 @@
-Find the local IP for local httpd service sharing.
+Find the IP for local httpd service URL sharing.
+
+	go get github.com/kaihendry/local/ip
