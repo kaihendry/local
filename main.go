@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	ip, err := ip.ExternalIP()
+	ip, err := ip.Local()
 
 	if err != nil {
 		panic(err)

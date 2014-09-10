@@ -1,12 +1,10 @@
 package ip
 
 import (
-	"errors"
-	"fmt"
 	"net"
 )
 
-func ExternalIP() (string, error) {
+func Local() (string, error) {
 
 	ifaces, err := net.Interfaces()
 
@@ -22,17 +20,22 @@ func ExternalIP() (string, error) {
 		}
 
 		for _, addr := range addrs {
-			fmt.Println(addr)
+			// fmt.Println("Debug", addr)
 			switch v := addr.(type) {
 			case *net.IPNet:
 				if !v.IP.IsLoopback() {
 					return v.IP.String(), nil
 				}
 			case *net.IPAddr:
-				fmt.Printf("%v : %s (%s)\n", i.Name, v, v.IP.DefaultMask())
+				// fmt.Println("Debug", v.IP)
+				if !v.IP.IsLoopback() && v.IP.String() != "0.0.0.0" {
+					return v.IP.String(), nil
+				}
+		
+				// fmt.Printf("A %v : %s (%s)\n", i.Name, v, v.IP.DefaultMask())
 			}
 		}
 	}
 
-	return "", errors.New("are you connected to the network?")
+	return "0.0.0.0", nil
 }
